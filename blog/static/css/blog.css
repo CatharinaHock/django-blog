@@ -1,14 +1,5 @@
-h1 a, h2 a {
-    color: #449ad8;
-    font-family: 'Lobster';
-}
 
-.page-header {
-    background-color: #449ad8;
-    margin-top: 0;
-    margin-bottom: 40px;
-    padding: 20px 20px 20px 40px;
-}
+
 
 .page-header h1,
 .page-header h1 a,
@@ -22,10 +13,14 @@ h1 a, h2 a {
 h1,
 h2,
 h3,
-h4 {
-    font-family: 'Lobster', cursive;
+h4,
+h5 {
+    font-family: 'ubuntu', fantasy;
 }
 
+h1{
+    font-family: helevetica, fantasy;
+}
 .date {
     color: #828282;
 }
@@ -39,17 +34,10 @@ h4 {
     width: 100%;
 }
 
-.top-menu,
-.top-menu:hover,
-.top-menu:visited {
-    color: #ffffff;
-    float: right;
-    font-size: 26pt;
-    margin-right: 20px;
-}
-
 .post {
-    margin-bottom: 70px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    margin-left: 100px;
 }
 
 .post h2 a,
@@ -101,4 +89,17 @@ canvas {
 
 h1 {
     color:rgb(47, 27, 227);
+}
+
+.shadedBox{
+    background-color:lightblue;
+    box-shadow: 10px 10px 10px grey;
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: 100%;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    width: 90%;
+    height: 200px;
 }

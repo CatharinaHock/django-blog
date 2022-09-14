@@ -1,20 +1,51 @@
-{% extends "blog/base_section_page.html" %}
+{% extends "blog/base.html" %}
 
+{% load static %}
 {% block content %}
 
 
 <div class="p-5 container-fluid row">
-    <h1> Welcome to my blog!</h1>
-    <div id="test"> nothing in here yet </div>
     <div class="col-sm">
-        <p>BLABLAH
-        </p>
+        <h1 class="text-center"> Welcome!</h1>
+        <h5 > Hi, I'm a science and math enthusiast who also likes creative writing, painting and coding.
+            Enthusiasm demands to be shared, and I am very happy to oblige. Here you will find the 
+            miscellaneous mess of thing I made, including short stories, artwork, coding projects and
+            the other things future me will come up with.
+            
+            Enjoy!
+        </h5>
     </div>
     <div class="col-sm">
-        <p>
-            BLABLAH
-        </p>
+        <img class= "mx-auto d-block" src="{% static '/pictures/blog_sheep_me.PNG' %}" alt="me as a sheep" style="height:400px;">
     </div>
+
+    <h1 class="text-center"> Where to start</h1>
+    <div class="col-sm shadedBox" style="background-image: url('/static/pictures/Fernmeldeturm.JPG');">
+        
+        <h5 > Like short stories? Try this!
+        </h5>
+    </div>
+    <div class="col-sm shadedBox" style="background-image: url('/static/pictures/Sylt.JPG');">
+        <h5> Feel like looking at some art? Check this out!</h5>
+    </div>
+
+    <h5>Some Fonts</h5>
+        <p style="font-family:Rubik Moonrocks;">Rubik Moonrocks </p>
+        <p style="font-family:Sofia;"> Sofia </p>
+        <p style="font-family:Amatic SC;">Amatic SC</p>
+        <p style="font-family:Stick No Bills;">Stick No Bills</p>
+        <p style="font-family:Orbitron;">Orbitron</p>
+        <p style="font-family:Special Elite;">Special Elite</p>
+        <p style="font-family:Blaka;">Blaka</p>
+        <p style="font-family:Marck Script;">Marck Script</p>
+        <p style="font-family:Audiowide;">Audiowide</p>
+        <p style="font-family:Splash; font-size:50px;">Splash</p>
+        <p style="font-family:sans-serif;">sans-serif</p>
+        <p style="font-family:serif;">serif</p>
+        <p style="font-family:Ubuntu;">Ubuntu</p>
+        <p style="font-family:Arial;">Arial</p>
+        <p style="font-family:Verdana;">Verdana</p>
+    
 
 </div>
 

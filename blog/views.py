@@ -8,11 +8,11 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def start_page(request):
-    return render(request, "blog/start.html")
+    return render(request, "blog/start.html", {"display_logo": True})
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte = timezone.now()).order_by("published_date")
-    return render(request, "blog/post_list.html", {"posts": posts})
+    return render(request, "blog/post_list.html", {"posts": posts, "display_logo": True})
     
 def post_detail(request, pk):
     post =  get_object_or_404(Post, pk =pk)

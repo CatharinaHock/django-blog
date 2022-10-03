@@ -14,21 +14,26 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     title =  models.CharField(max_length = 200)
     text = models.TextField()
-    #brief_description =  models.TextField(blank =  True, null = True)
+    brief_description =  models.TextField(blank =  True, null = True)
     authors_comment = models.TextField(blank=True, null=True)
     thumbnail = models.ImageField(blank = True, null = True)
     created_date = models.DateTimeField(default= timezone.now)
     published_date = models.DateTimeField(blank = True, null = True)
 
     # add (multiple) languages
-    language= models.ManyToManyField(Language, help_text= "Language(s) of text", default=Language.objects.get(name="English"))
+    language= models.ManyToManyField(Language, blank=True)#, default=Language.objects.get(name="English"))
+
+    def create_brief_description(self):
+        print("calling create_brief_description")
+        if self.brief_desription == None:
+            self.brief_description = self.text[:500]
+            print("created new description!")
+            if len(self.text)<500 and not self.brief_description[-1] in [".", "?", "!"]:
+                self.brief_description+=". . ."
 
     def publish(self):
         self.published_date = timezone.now()
-        if not self.brief_description:
-            self.brief_description = self.text[:500]
-            if len(self.text)<500:
-                self.brief_description+=". . ."
+        self.create_brief_description()
         self.save()
     
     def __str__(self):

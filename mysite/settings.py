@@ -17,7 +17,9 @@ from addPathsForImports import addPaths
 # Only needed on the server. Locally, the function does nothing.
 addPaths()
 
-from decouple import Config
+from decouple import Config, RepositoryEnv
+
+config = Config(RepositoryEnv(".env.txt"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,14 +29,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = Config("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-if Config("DEBUG") == "True":
-    DEBUG = True
-else:
-    DEBUG = False
+
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
@@ -130,7 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = Config("STATIC_ROOT")#BASE_DIR/"static"
+STATIC_ROOT = config("STATIC_ROOT")#BASE_DIR/"static"
 # Default primary key field type
 
 MEDIA_URL = "/media/"

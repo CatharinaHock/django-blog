@@ -30,7 +30,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = Config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+if Config("DEBUG") == "True":
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
@@ -130,7 +134,7 @@ STATIC_ROOT = Config("STATIC_ROOT")#BASE_DIR/"static"
 # Default primary key field type
 
 MEDIA_URL = "/media/"
-#MEDIA_ROOT = "\Users\Hocktronic GmbH\django_stuff\media"
+#MEDIA_ROOT = Config("MEDIA_ROOT")
 #Config("MEDIA_ROOT")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

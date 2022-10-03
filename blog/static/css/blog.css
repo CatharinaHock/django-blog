@@ -1,48 +1,40 @@
+:root{
+    /* Defining cutstom colours. These are the same as in the logo. */
+    --cyan: rgb(0,255,255); 
+    --cyan2 : rgb(0,206,209);
+    --cyan3: rgb(32,178,170); 
+    --cyan4: rgb(47,79,79);
 
+    --lightblue: rgb(0,191,255);
+    --pastelblue: rgb(100,149,237);
+    --blue: rgb(0,0,205);
+    --ultramarine: rgb(0,0,128);
+    --navyblue: rgb(25,25,112);
 
+    --pastelpurple: rgb(123,104,238);
+    --purple: rgb(153,50,204);
 
-.page-header h1,
-.page-header h1 a,
-.page-header h1 a:visited,
-.page-header h1 a:active {
-    color: #ffffff;
-    font-size: 36pt;
-    text-decoration: none;
+    /* these are not in the logo*/
+    --cyan5: rgb(30, 47, 47);
+    --inkblack: rgb(4, 8, 37);
+    --pastelcyan: rgb(57, 94, 94); 
+
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-    font-family: 'ubuntu', fantasy;
-}
-
-h1{
-    font-family: helevetica, fantasy;
-}
+/* Post stuff */
 .date {
     color: #828282;
+    padding-right: 10px;
 }
 
 .save {
     float: right;
 }
 
-.post-form textarea,
-.post-form input {
-    width: 100%;
-}
-
 .post {
     margin-top: 35px;
     margin-bottom: 35px;
-    margin-left: 100px;
-}
-
-.post h2 a,
-.post h2 a:visited {
-    color: #000000;
+    width:100%;
 }
 
 .post > .date,
@@ -50,18 +42,25 @@ h1{
     float: right;
 }
 
+.article-container{
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Nice buttons */
 .btn-secondary,
 .btn-secondary:visited {
-    color: #C25100;
+    color: var(--pastelblue);
     background: none;
-    border-color: #C25100;
+    border-color: var(--pastelblue);
 }
 
 .btn-secondary:hover {
     color: #FFFFFF;
-    background-color: #C25100;
+    background-color: var(--pastelblue);
 }
 
+/* canvas for the animated logo */
 
 canvas {
     /*background-color:rgba(107, 202, 226, 0.5);*/
@@ -70,7 +69,7 @@ canvas {
     
 }
 
-/* "static/pictures/strudel2.jpg");*/
+
 
 #canvasBox {
     background-image: url("../pictures/strudel2.jpg");
@@ -87,8 +86,83 @@ canvas {
     text-align: center;
 }
 
-h1 {
-    color:rgb(47, 27, 227);
+/* Defining colors for headings and fonts */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    font-family: 'ubuntu', fantasy;
+}
+
+/*h1{
+    color: var(--lightblue ) ;
+}
+h2{
+    color: var(--pastelblue);
+}
+h3{
+    color: var(--blue);
+}
+h4{
+    color:var(--ultramarine);
+}
+h5{
+    color:var(--navyblue);
+}*/
+
+h1{
+    color: var(--lightblue);
+    
+}
+h2{
+    color: var(--pastelblue ) ;
+    
+}
+h3{
+    color: var(--pastelpurple);
+}
+h4{
+    color:var(--cyan3);
+}
+h5{
+    color:var(--inkblack);
+}
+
+.post h2 a,
+.post h2 a:visited {
+    color: var(--pastelblue);
+}
+
+.signature{
+    position:relative;
+    font-family: Splash, fantasy;
+    font-size: 30px;
+    padding: 10px 0px;
+    text-align:left;
+}
+
+
+
+/* Stuff for forms */
+div.form{
+    display: block;
+    text-align: center;
+}
+form{
+    margin-bottom: 30px;
+    margin-top: 30px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.post-form textarea,
+.post-form input {
+    width: 100%;
 }
 
 .shadedBox{

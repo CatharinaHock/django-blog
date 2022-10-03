@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from addPathsForImports import addPaths
+
+# adds Paths for modules like decouple to sys.path. 
+# Only needed on the server. Locally, the function does nothing.
+addPaths()
+
 from decouple import Config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -120,8 +126,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR/"static"
+STATIC_ROOT = Config("STATIC_ROOT")#BASE_DIR/"static"
 # Default primary key field type
+
+MEDIA_URL = "/media/"
+#MEDIA_ROOT = "\Users\Hocktronic GmbH\django_stuff\media"
+#Config("MEDIA_ROOT")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

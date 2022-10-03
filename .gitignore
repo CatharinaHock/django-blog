@@ -8,6 +8,7 @@ __pycache__
 .env.txt
 myvenv/
 venv/
+addPathsForImports.py
 
 #Database
 db.sqlite3

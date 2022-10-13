@@ -15,11 +15,11 @@ from addPathsForImports import addPaths
 
 # adds Paths for modules like decouple to sys.path. 
 # Only needed on the server. Locally, the function does nothing.
-addPaths()
+env_dict= addPaths()
 
 from decouple import Config, RepositoryEnv
 
-config = Config(RepositoryEnv(".env.txt"))
+config = Config(RepositoryEnv(env_dict["path_to_env"]))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

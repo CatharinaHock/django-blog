@@ -4,11 +4,13 @@ from django.utils import timezone
 
 
 class Language(models.Model):
-    name = models.CharField(max_length = 200)
+    name = models.CharField(max_length = 20)
 
     def __str__(self):
         return self.name
 
+def eng():
+    return [Language.objects.get(name="English")]
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
@@ -21,7 +23,7 @@ class Post(models.Model):
     published_date = models.DateTimeField(blank = True, null = True)
 
     # add (multiple) languages
-    language= models.ManyToManyField(Language, blank=True)#, default=Language.objects.get(name="English"))
+    language= models.ManyToManyField(Language, blank= True, default=eng)
 
     def create_brief_description(self):
         print("calling create_brief_description")

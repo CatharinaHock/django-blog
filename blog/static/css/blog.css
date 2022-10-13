@@ -177,3 +177,14 @@ form{
     width: 90%;
     height: 200px;
 }
+
+.column-checkbox {
+    padding-top: 20px;
+    color: var(--cyan3);
+}
+
+.column-checkbox .checkbox {
+    display: block;
+    float: left;
+    width: 25%;
+}

@@ -7,7 +7,18 @@
             <time class="date">
                 <i class="fa fa-calendar"></i> {{ post.published_date }}
             </time>
+            
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <div class="tag-box">
+                
+                {% for language in post.language.all %}
+                <span class="badge badge-pill badge-language">{{ language.name }}</span>
+                {% endfor %}
+
+                {% for tag in post.tags.all %}
+                <span class="badge badge-pill badge-language" style="background-color: var(--{{tag.color.label}});">{{ tag.name }}{{ tag.color.label }}</span>
+                {% endfor %}
+            </div>
             <p>{{ post.brief_description|linebreaksbr }}</p>
         </article>
     {% endfor %}

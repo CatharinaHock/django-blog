@@ -2,7 +2,7 @@
     /* Defining cutstom colours. These are the same as in the logo. */
     --cyan: rgb(0,255,255); 
     --cyan2 : rgb(0,206,209);
-    --cyan3: rgb(32,178,170); 
+    --seagreen: rgb(32,178,170); 
     --cyan4: rgb(47,79,79);
 
     --lightblue: rgb(0,191,255);
@@ -23,7 +23,7 @@
 
 /* Post stuff */
 .date {
-    color: #828282;
+    color: var(--cyan4);/*#828282;*/
     padding-right: 10px;
 }
 
@@ -125,7 +125,7 @@ h3{
     color: var(--pastelpurple);
 }
 h4{
-    color:var(--cyan3);
+    color:var(--seagreen);
 }
 h5{
     color:var(--inkblack);
@@ -180,11 +180,21 @@ form{
 
 .column-checkbox {
     padding-top: 20px;
-    color: var(--cyan3);
+    color: var(--seagreen);
 }
 
 .column-checkbox .checkbox {
     display: block;
-    float: left;
+    float: right;
     width: 25%;
+}
+
+.badge-language{
+    background-color: var(--pastelpurple);
+    color: white;
+}
+
+div.tag-box{
+    float:right;
+    padding: 10px;
 }

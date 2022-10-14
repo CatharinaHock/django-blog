@@ -20,6 +20,14 @@
             {% if false %}
             <img src="{{post.thumbnail.url}}">
             {% endif %}
+
+            <div class="tag-box">
+                
+                {% for language in post.language.all %}
+                <span class="badge badge-pill badge-language">{{ language.name }}</span>
+                {% endfor %}
+            </div>
+            
             <p>{{ post.text|linebreaksbr }}</p>
     
         

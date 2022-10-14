@@ -9,8 +9,20 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
-def eng():
-    return [Language.objects.get(name="English")]
+eng = Language.objects.get(name="English")
+
+class Tag(models.Model):
+    COLOR_CHOICES=(
+        ("lb","lightblue"),
+        ("pb","pastelblue"),
+        ("pp","pastelpurple"),
+        ("sg", "seagreen"),
+    )
+    name = models.CharField(max_length=200)
+    color = models.CharField(max_length=2, choices=COLOR_CHOICES)
+
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
@@ -23,7 +35,8 @@ class Post(models.Model):
     published_date = models.DateTimeField(blank = True, null = True)
 
     # add (multiple) languages
-    language= models.ManyToManyField(Language, blank= True, default=eng)
+    language= models.ManyToManyField("Language", related_name = "languages")
+    tags= models.ManyToManyField("Tag", related_name = "tags", blank=True)
 
     def create_brief_description(self):
         print("calling create_brief_description")
@@ -43,5 +56,5 @@ class Post(models.Model):
 
     class Meta:
         # default ordering
-        ordering=["published_date"]
+        ordering=["-published_date"]
 

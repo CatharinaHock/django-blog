@@ -189,12 +189,40 @@ form{
     width: 25%;
 }
 
-.badge-language{
-    background-color: var(--pastelpurple);
+/* Styles for tags */
+
+
+a:link.badge-tag ,
+a:visited.badge-tag {
     color: white;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+a:hover.badge-tag {
+    box-shadow: 2px 2px 4px grey;
 }
 
 div.tag-box{
     float:right;
     padding: 10px;
+}
+
+.pp{
+    background-color: var(--pastelpurple);
+}
+
+.sg{
+    background-color: var(--seagreen);
+}
+
+a:link.new-tag ,
+a:visited.new-tag {
+    background-color:white;
+    color: var(--inkblack);
+    border-color: var(--inkblack);
+    border-width: 1px;
+    border-style: dashed;
+    border-radius: 20px;
+    padding: 3px 5px;
 }

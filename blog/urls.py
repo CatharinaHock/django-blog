@@ -15,6 +15,7 @@ urlpatterns = [
     path('post/new/', views.post_new, name='post_new'),
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path("tag/new/", views.tag_new, name="tag_new"),
+    path("tag/<int:pk>/", views.tag_post_list, name="tag_post_list"),
     path("tag/<int:pk>/edit/", views.tag_edit, name="tag_edit"),
     path('accounts/login/', auth_views.LoginView.as_view(), name="login"),
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),

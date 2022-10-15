@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Post, Language, Tag
+from .models import Post, Tag
 from django.utils import timezone
 from .forms import PostForm, TagForm
 #from serializers import PostSerializer, LanguageSerializer
@@ -11,9 +11,17 @@ def start_page(request):
     return render(request, "blog/start.html", {"display_logo": True})
 
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte = timezone.now()).order_by("published_date")
-    return render(request, "blog/post_list.html", {"posts": posts, "display_logo": True})
-    
+    posts = Post.objects.filter(published_date__lte = timezone.now()).order_by("-published_date")
+    tags = Tag.objects.all()
+    return render(request, "blog/post_list.html", {"posts": posts, "display_logo": True, "tags": tags})
+
+def tag_post_list(request, pk):
+    current_tag = get_object_or_404(Tag, pk = pk)
+    tags = Tag.objects.all()
+    posts = Post.objects.filter(published_date__lte = timezone.now(), tags__contains=current_tag).order_by("-published_date")
+    return render(request, "blog/post_list.html", {"posts": posts, 
+                            "display_logo": True, "tags": tags, "current_tag": current_tag})
+
 def post_detail(request, pk):
     post =  get_object_or_404(Post, pk =pk)
     return render(request, "blog/post_detail.html", {"post":post})
@@ -22,11 +30,10 @@ def post_detail(request, pk):
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data["tags"].filter(type="l") != []:
             post = form.save(commit = False)
             post.author = request.user
             post.published_date = timezone.now()
-            post.language.set(form.cleaned_data["language"])
             post.tags.set(form.cleaned_data["tags"])
             post.save()
             return redirect("post_detail", pk = post.pk)
@@ -56,11 +63,10 @@ def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data["tags"].filter(type="l") != []:
             post = form.save(commit=False)
             post.author = request.user
             post.published_date = timezone.now()
-            post.language.set(form.cleaned_data["language"])
             post.tags.set(form.cleaned_data["tags"])
             post.save()
             return redirect('post_detail', pk=post.pk)

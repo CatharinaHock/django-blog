@@ -3,26 +3,37 @@ from django.db import models
 from django.utils import timezone
 
 
+
+# no need for this anymore
 class Language(models.Model):
     name = models.CharField(max_length = 20)
 
     def __str__(self):
         return self.name
 
-eng = Language.objects.get(name="English")
+
+
 
 class Tag(models.Model):
+    # languages are also tags now
     COLOR_CHOICES=(
         ("lb","lightblue"),
         ("pb","pastelblue"),
         ("pp","pastelpurple"),
         ("sg", "seagreen"),
     )
+    TYPE_CHOICES=(
+        ("l", "language tag"),
+        ("o", "other"),
+    )
     name = models.CharField(max_length=200)
-    color = models.CharField(max_length=2, choices=COLOR_CHOICES)
+    color = models.CharField(max_length=2, choices=COLOR_CHOICES, default="pb")
+    type = models.CharField(max_length=1, choices = TYPE_CHOICES, default="o")
 
     def __str__(self):
         return self.name
+
+eng = Tag(name="English",color="pp", type="l")
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
@@ -34,9 +45,8 @@ class Post(models.Model):
     created_date = models.DateTimeField(default= timezone.now)
     published_date = models.DateTimeField(blank = True, null = True)
 
-    # add (multiple) languages
-    language= models.ManyToManyField("Language", related_name = "languages")
-    tags= models.ManyToManyField("Tag", related_name = "tags", blank=True)
+    # add (multiple) tags
+    tags= models.ManyToManyField("Tag", related_name = "tags")
 
     def create_brief_description(self):
         print("calling create_brief_description")

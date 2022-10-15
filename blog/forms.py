@@ -1,27 +1,32 @@
 from django import forms
 
-from .models import Post, Language, Tag
+from .models import Post, Tag
 
 
 class PostForm(forms.ModelForm):
     
     class Meta:
         model = Post
-        fields = ("title", "text", "authors_comment", "brief_description", "thumbnail", "language", "tags")
+        fields = ("title", "text", "authors_comment", "brief_description", "thumbnail", "tags",)#, "language", "tags")
+
         widgets = {
-            'language': forms.CheckboxSelectMultiple(attrs={"class": "column_checkbox form-check-label", "type": "radio"}),
+            #'language': forms.CheckboxSelectMultiple(attrs={"class": "column_checkbox form-check-label", "type": "radio"}),
             "tags": forms.CheckboxSelectMultiple(attrs={"class": "column_checkbox form-check-label", "type": "radio"}),
         }
 
+
     """
     language = forms.ModelMultipleChoiceField(
-        queryset=Language.objects.all(),
+        queryset=Tag.objects.filter(type="l"),
         widget=forms.CheckboxSelectMultiple(attrs={"class": "column_checkbox form-check-label", "type": "radio"}),
-        initial = self.instance.language.all(),
+    )
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.filter(type="o"),
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "column_checkbox form-check-label", "type": "radio"}),
     )
     """
 
 class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
-        fields = ("name","color")
+        fields = ("name","color", "type")

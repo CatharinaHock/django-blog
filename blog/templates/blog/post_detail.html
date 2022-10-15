@@ -22,12 +22,11 @@
             {% endif %}
 
             <div class="tag-box">
-                
-                {% for language in post.language.all %}
-                <span class="badge badge-pill badge-language">{{ language.name }}</span>
+                {% for tag in post.tags.all %}
+                <a class="badge badge-pill badge-tag" style="background-color: var(--{{tag.get_color_display}});">{{ tag.name }}</a>
                 {% endfor %}
             </div>
-            
+
             <p>{{ post.text|linebreaksbr }}</p>
     
         

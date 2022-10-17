@@ -7,10 +7,9 @@ class PostForm(forms.ModelForm):
     
     class Meta:
         model = Post
-        fields = ("title", "text", "authors_comment", "brief_description", "thumbnail", "tags",)#, "language", "tags")
+        fields = ("title", "text", "authors_comment", "brief_description", "thumbnail", "tags",)
 
         widgets = {
-            #'language': forms.CheckboxSelectMultiple(attrs={"class": "column_checkbox form-check-label", "type": "radio"}),
             "tags": forms.CheckboxSelectMultiple(attrs={"class": "column_checkbox form-check-label", "type": "radio"}),
         }
 
@@ -29,4 +28,4 @@ class PostForm(forms.ModelForm):
 class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
-        fields = ("name","color", "type")
+        fields = ("name","style", "type")

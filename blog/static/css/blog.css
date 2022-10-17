@@ -17,7 +17,6 @@
     /* these are not in the logo*/
     --cyan5: rgb(30, 47, 47);
     --inkblack: rgb(4, 8, 37);
-    --pastelcyan: rgb(57, 94, 94); 
 
 }
 
@@ -45,6 +44,8 @@
 .article-container{
     width: 80%;
     max-width: 700px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 /* Nice buttons */
@@ -199,7 +200,8 @@ a:visited.badge-tag {
     text-decoration: none;
 }
 
-a:hover.badge-tag {
+a:hover.badge-tag,
+a:active.badge-tag {
     box-shadow: 2px 2px 4px grey;
 }
 
@@ -208,12 +210,31 @@ div.tag-box{
     padding: 10px;
 }
 
-.pp{
+.pp{ /* pastelpurple */
     background-color: var(--pastelpurple);
 }
 
-.sg{
+.sg{ /* seagreen */
     background-color: var(--seagreen);
+}
+
+.pb{ /* pastelblue */
+    background-color: var(--pastelblue);
+}
+
+.ds{ /* dark sky */
+    background-color: var(--inkblack);
+}
+
+.nb{ /* navy blue */
+    background-color:var(--navyblue);
+}
+
+.lg,
+a:link.lg
+a:visited.lg{ /* light grey */
+    background-color: lightgrey;
+    color: var(--inkblack);
 }
 
 a:link.new-tag ,

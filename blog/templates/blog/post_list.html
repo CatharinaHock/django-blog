@@ -1,17 +1,23 @@
 {% extends 'blog/base.html'%}
+{% load static %}
 
 {% block content %}
-    <div class="container-fluid article-container" >
-    <h2> Meet the tags!</h2>
+    
+    <div class="container-fluid article-container">
+    <h1> Meet the tags!</h1>
     {% for tag in tags %}
-        <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag" style="background-color: var(--{{tag.get_color_display}});">{{ tag.name }}</a>
+        <!--<button class="badge badge-pill badge-tag"> {{tag.name}}</button>-->
+        <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag {{tag.style}}">{{ tag.name }}</a>
     {% endfor %}
-
+    <a href="{% url 'tag_list_post_list' pk='[1,2]' %}" class="badge badge-pill badge-tag {{tag.style}}">Search</a>
     {% if user.is_authenticated %}
     <a href="{% url 'tag_new' %}" class="badge badge-pill badge-tag new-tag">new Tag</a>
     {% endif %}
+    </div>
+
+    <div class="container-fluid article-container" >
     {% if current_tag %}
-        <h2> Search results for tag  <span class="badge badge-pill badge-tag" style="background-color: var(--{{current_tag.get_color_display}});">{{ current_tag.name }}</span></h2>
+        <h1> Search results for <a href="{% url 'tag_edit' pk=current_tag.pk %}" class="badge badge-pill badge-tag {{current_tag.style}}" >{{ current_tag.name }}</a></h1>
     {% endif %}
     {% for post in posts %}
         <article class="post">
@@ -22,12 +28,16 @@
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <div class="tag-box">
                 {% for tag in post.tags.all %}
-                <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag" style="background-color: var(--{{tag.get_color_display}});">{{ tag.name }}</a>
+                <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag {{tag.style}}">{{ tag.name }}</a>
                 {% endfor %}
 
             </div>
             <p>{{ post.brief_description|linebreaksbr }}</p>
         </article>
     {% endfor %}
+    {% if not posts %}
+    <img class= "mx-auto d-block" src="{% static '/pictures/blog_sheep_adrift.PNG' %}" alt="me as a sheep" style="height:200px;">
+    <p style="text-align:center;"> Sorry, but there are no posts with this tag yet.</p>
+    {% endif %}
     </div>
 {% endblock %}

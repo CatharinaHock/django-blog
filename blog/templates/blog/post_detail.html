@@ -23,7 +23,7 @@
 
             <div class="tag-box">
                 {% for tag in post.tags.all %}
-                <a class="badge badge-pill badge-tag" style="background-color: var(--{{tag.get_color_display}});">{{ tag.name }}</a>
+                <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag {{tag.style}}">{{ tag.name }}</a>
                 {% endfor %}
             </div>
 

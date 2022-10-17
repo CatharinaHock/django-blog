@@ -18,7 +18,16 @@ def post_list(request):
 def tag_post_list(request, pk):
     current_tag = get_object_or_404(Tag, pk = pk)
     tags = Tag.objects.all()
-    posts = Post.objects.filter(published_date__lte = timezone.now(), tags__contains=current_tag).order_by("-published_date")
+    posts = Post.objects.filter(published_date__lte = timezone.now(), tags__exact=pk).order_by("-published_date")
+    return render(request, "blog/post_list.html", {"posts": posts, 
+                            "display_logo": True, "tags": tags, "current_tag": current_tag})
+
+def tag_list_post_list(request, pk_list):
+    tags=[]
+    posts=[]
+    for pk in pk_list:
+        tags.append(get_object_or_404(Tag, pk = pk))
+    posts = Post.objects.filter(published_date__lte = timezone.now(), tags__exact=pk_list).order_by("-published_date")
     return render(request, "blog/post_list.html", {"posts": posts, 
                             "display_logo": True, "tags": tags, "current_tag": current_tag})
 
@@ -33,7 +42,7 @@ def post_new(request):
         if form.is_valid() and form.cleaned_data["tags"].filter(type="l") != []:
             post = form.save(commit = False)
             post.author = request.user
-            post.published_date = timezone.now()
+            #post.published_date = timezone.now()
             post.tags.set(form.cleaned_data["tags"])
             post.save()
             return redirect("post_detail", pk = post.pk)
@@ -41,32 +50,15 @@ def post_new(request):
         form = PostForm()
     return render(request, "blog/post_edit.html", {"form": form})
 
-"""
-# not working, so nevermind
-def post_new_altered(request):
-    serializer = PostSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    post = serializer.save()
-
-    for language_id in request.data.get('language'):
-        try:
-            language = Language.objects.get(id=tag_id)
-            post.language.add(language)
-        except Language.DoesNotExist:
-            raise NotFound()
-    
-    return Response(data=serializer.data, status=status.HTTP_201_CREATED)
-"""
-
 @login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
-        if form.is_valid() and form.cleaned_data["tags"].filter(type="l") != []:
+        if form.is_valid() and form.cleaned_data["tags"].filter(type__exact="l") != []:
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = timezone.now()
+            #post.published_date = timezone.now()
             post.tags.set(form.cleaned_data["tags"])
             post.save()
             return redirect('post_detail', pk=post.pk)
@@ -86,6 +78,9 @@ def tag_new(request):
         form = TagForm()
     return render(request, "blog/tag_edit.html", {"form": form})
 
+
+a_tag = Tag.objects.filter(name__exact="Fantasy")
+
 @login_required
 def tag_edit(request, pk):
     tag = get_object_or_404(Tag, pk=pk)
@@ -94,7 +89,13 @@ def tag_edit(request, pk):
         if form.is_valid():
             tag = form.save(commit = False)
             tag.save()
-            return redirect("post_list")
+            return redirect("tag_post_list", pk=tag.pk)
     else:
-        form = TagForm()
-    return render(request, "blog/tag_edit.html", {"form": form})
+        form = TagForm(instance=tag)
+    return render(request, "blog/tag_edit.html", {"form": form, "current_tag":tag})
+
+@login_required
+def tag_delete(request, pk):
+    tag = get_object_or_404(Tag, pk=pk)
+    tag.delete()
+    return redirect("post_list")

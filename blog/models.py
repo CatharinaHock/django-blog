@@ -11,29 +11,29 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
-
-
-
 class Tag(models.Model):
     # languages are also tags now
-    COLOR_CHOICES=(
+    STYLE_CHOICES=(
         ("lb","lightblue"),
         ("pb","pastelblue"),
         ("pp","pastelpurple"),
         ("sg", "seagreen"),
+        ("ds", "dark sky"),
+        ("nb", "navy blue"),
+        ("lg", "light grey"),
     )
     TYPE_CHOICES=(
         ("l", "language tag"),
         ("o", "other"),
     )
     name = models.CharField(max_length=200)
-    color = models.CharField(max_length=2, choices=COLOR_CHOICES, default="pb")
+    style = models.CharField(max_length=2, choices=STYLE_CHOICES, default="pb")
     type = models.CharField(max_length=1, choices = TYPE_CHOICES, default="o")
 
     def __str__(self):
         return self.name
 
-eng = Tag(name="English",color="pp", type="l")
+eng = Tag(name="English",style="pp", type="l")
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)

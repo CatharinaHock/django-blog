@@ -3,15 +3,26 @@
 {% block content %}
     
     <div class="container-fluid article-container form">
+        
         {% if current_tag %}
         <h2> Edit <a href="{% url 'tag_post_list' pk=current_tag.pk %}" class="badge badge-pill badge-tag {{current_tag.style}}" >{{ current_tag.name }}</a> </h2>
         {% else %}
         <h2> New Tag</h2>
         {% endif %}
         <form method="POST" class="post-form">{%csrf_token %}
+            
             {{ form.as_p}}
             <button type="submit" class="save btn btn-secondary" style="margin:10px;"> Save</button>
-            <a href="{% url 'tag_delete' pk=current_tag.pk %}" class="save btn btn-secondary" style="margin:10px;">Delete</a>
+            <span class="save btn btn-secondary" style="margin:10px;" data-bs-toggle="collapse" data-bs-target="#delete-warning-box">Delete</span>
+            <!-- Need to use span instead of a, otherwise django will redirect to /tag/x/-->
+
+            <div id="delete-warning-box" class="collapse show" style="margin-top:100px;">
+                <p></p>
+                <p> Are you sure you want to delete this tag?</p>
+                <a href="{% url 'tag_delete' pk=current_tag.pk %}" class="save btn btn-secondary">I'm sure</a>
+                
+            </div>
+
         </form>
         
     </div>

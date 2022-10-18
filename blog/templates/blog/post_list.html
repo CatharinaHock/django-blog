@@ -9,7 +9,7 @@
         <!--<button class="badge badge-pill badge-tag"> {{tag.name}}</button>-->
         <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag {{tag.style}}">{{ tag.name }}</a>
     {% endfor %}
-    <a href="{% url 'tag_list_post_list' pk='[1,2]' %}" class="badge badge-pill badge-tag {{tag.style}}">Search</a>
+   
     {% if user.is_authenticated %}
     <a href="{% url 'tag_new' %}" class="badge badge-pill badge-tag new-tag">new Tag</a>
     {% endif %}

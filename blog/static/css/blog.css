@@ -152,7 +152,8 @@ div.form{
     display: block;
     text-align: center;
 }
-form{
+form, 
+div.form-like{
     margin-bottom: 30px;
     margin-top: 30px;
     display: inline-block;

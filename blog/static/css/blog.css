@@ -17,7 +17,8 @@
     /* these are not in the logo*/
     --cyan5: rgb(30, 47, 47);
     --inkblack: rgb(4, 8, 37);
-
+    --anthrazit: rgb(33,39,41);
+    --lightgrey: rgb(211,211,211);
 }
 
 /* Post stuff */
@@ -61,31 +62,7 @@
     background-color: var(--pastelblue);
 }
 
-/* canvas for the animated logo */
 
-canvas {
-    /*background-color:rgba(107, 202, 226, 0.5);*/
-    width:100%;
-    margin: 0px;
-    
-}
-
-
-
-#canvasBox {
-    background-image: url("../pictures/strudel2.jpg");
-    
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    /*background-attachment: fixed;*/
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow: hidden;
-    max-height: 500px;
-    text-align: center;
-}
 
 /* Defining colors for headings and fonts */
 
@@ -152,8 +129,7 @@ div.form{
     display: block;
     text-align: center;
 }
-form, 
-div.form-like{
+form{
     margin-bottom: 30px;
     margin-top: 30px;
     display: inline-block;
@@ -169,7 +145,7 @@ div.form-like{
 
 .shadedBox{
     background-color:lightblue;
-    box-shadow: 10px 10px 10px grey;
+    box-shadow: 10px 10px 10px var(--lightgrey);
     background-repeat: no-repeat;
     background-position:center;
     background-size: 100%;
@@ -211,6 +187,10 @@ div.tag-box{
     padding: 10px;
 }
 
+.lb{ /* lightblue */
+    background-color: var(--lightblue);
+}
+
 .pp{ /* pastelpurple */
     background-color: var(--pastelpurple);
 }
@@ -225,16 +205,38 @@ div.tag-box{
 
 .ds{ /* dark sky */
     background-color: var(--inkblack);
+    /*background-image: linear-gradient(to right, var(--lightblue), var(--inkblack));*/
 }
 
 .nb{ /* navy blue */
     background-color:var(--navyblue);
 }
 
+.dd{ /* delve deeper */
+    background-image: url("../pictures/strudel2.jpg");
+    background-repeat: no-repeat;
+    background-position: 80% 50%;
+    background-size: 500%;
+}
+
+.gd,
+a:link.gd,
+a:visited.gd{ /* gold */
+    background-image: linear-gradient(to right, rgb(255, 245, 132),rgb(255, 197, 52), rgb(169, 137, 56),rgb(255, 197, 52) );
+    color: var(--inkblack);
+
+}
+
+.sv,
+a:link.sv,
+a:visited.sv{ /* silver */
+    background-image: linear-gradient(to right, rgb(215, 214, 206),rgb(127, 123, 111), rgb(50, 48, 44),rgb(127, 123, 111) );
+}
+
 .lg,
-a:link.lg
+a:link.lg,
 a:visited.lg{ /* light grey */
-    background-color: lightgrey;
+    background-color: var(--lightgrey);
     color: var(--inkblack);
 }
 
@@ -247,4 +249,90 @@ a:visited.new-tag {
     border-style: dashed;
     border-radius: 20px;
     padding: 3px 5px;
+}
+
+/* Stuff for the accordion (expandable author's comment) */
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-radius: 20px ;
+    outline: none;
+    
+    transition: 0.4s;
+
+    -webkit-transition: background 0.4s ease-in-out;
+    transition: background 0.4s ease-in-out;
+
+  }
+  
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.accordion.active, .accordion:hover {
+    background-color: var(--navyblue);/*#ccc;*/
+    background-image: url("../pictures/strudel2.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    color: white;
+  }
+
+.accordion.active{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+  
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0px 18px;
+    background-color:var(--anthrazit);
+    color:white;
+    overflow: hidden;
+    max-height: 0px;
+    transition: max-height 0.2s ease-out;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+.accordion:after {
+    content: '\002B';
+    
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.accordion.active:after {
+    content: "\2212";
+    color: white;
+}
+
+/* canvas for the animated logo */
+
+canvas {
+    /*background-color:rgba(107, 202, 226, 0.5);*/
+    width:100%;
+    margin: 0px;
+    
+}
+
+
+
+#canvasBox {
+    background-image: url("../pictures/strudel2.jpg");
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    max-height: 500px;
+    text-align: center;
 }

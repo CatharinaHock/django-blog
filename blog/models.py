@@ -21,6 +21,9 @@ class Tag(models.Model):
         ("ds", "dark sky"),
         ("nb", "navy blue"),
         ("lg", "light grey"),
+        ("dd", "delve deeper special"),
+        ("sv", "silver"),
+        ("gd", "gold"),
     )
     TYPE_CHOICES=(
         ("l", "language tag"),
@@ -50,7 +53,7 @@ class Post(models.Model):
 
     def create_brief_description(self):
         print("calling create_brief_description")
-        if self.brief_desription == None:
+        if self.brief_description == None:
             self.brief_description = self.text[:500]
             print("created new description!")
             if len(self.text)<500 and not self.brief_description[-1] in [".", "?", "!"]:
@@ -58,7 +61,6 @@ class Post(models.Model):
 
     def publish(self):
         self.published_date = timezone.now()
-        self.create_brief_description()
         self.save()
     
     def __str__(self):

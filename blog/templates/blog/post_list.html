@@ -17,7 +17,14 @@
 
     <div class="container-fluid article-container" >
     {% if current_tag %}
-        <h1> Search results for <a href="{% url 'tag_edit' pk=current_tag.pk %}" class="badge badge-pill badge-tag {{current_tag.style}}" >{{ current_tag.name }}</a></h1>
+        <h1> Search results for <a href="{% url 'tag_post_list' pk=current_tag.pk %}" class="badge badge-pill badge-tag {{current_tag.style}}" >{{ current_tag.name }}</a>
+        {% if user.is_authenticated %}
+            <a class="btn btn-secondary" href="{% url 'tag_edit' pk=current_tag.pk %}">
+                {% include './icons/pencil-fill.svg' %}
+            </a>
+        {% endif %}
+        </h1>
+    
     {% endif %}
     {% for post in posts %}
         <article class="post">

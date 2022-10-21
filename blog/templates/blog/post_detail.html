@@ -28,8 +28,13 @@
             </div>
 
             <p>{{ post.text|linebreaksbr }}</p>
-    
-        
+            {% if post.authors_comment %}
+            <br>
+            <button class="accordion">Author's Comment</button>
+            <div class="panel">
+                <p>{{ post.authors_comment|linebreaksbr }}</p>
+            </div>
+            {% endif %}
         </article>
     </div>
 {% endblock %}

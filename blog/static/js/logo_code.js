@@ -165,9 +165,9 @@ function drawAll(){
     for(let i=0; i<ringList.length; i++){
         ringList[i].draw();
     }
-    if(sessionStorage.getItem('activeSite') =="about"){
-        sheep.draw();
-    }
+    //if(sessionStorage.getItem('activeSite') =="about"){
+    //    sheep.draw();
+    //}
 
     ctx.font = "200px 'Rubik Moonrocks'";
     ctx.fillText("Delve", xcenter- m.width/2, ycenter- height*0.01);

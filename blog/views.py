@@ -4,6 +4,7 @@ from django.utils import timezone
 from .forms import PostForm, TagForm
 #from serializers import PostSerializer, LanguageSerializer
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
@@ -46,9 +47,12 @@ def post_new(request):
                 post = form.save(commit = False)
                 post.author = request.user
                 post.published_date = timezone.now()
+                post.thumbnail = form.cleaned_data["thumbnail"]
                 post.save()
                 post.create_brief_description()
                 post.tags.set(form.cleaned_data["tags"])
+                if "thumbnail" in request.FILES.keys():
+                    post.thumbnail =  request.FILES["thumbnail"]
                 post.save()
                 return redirect("post_detail", pk = post.pk)
             else:
@@ -66,11 +70,12 @@ def post_edit(request, pk):
             if form.cleaned_data["tags"].filter(type__exact="l") != []:
                 post = form.save(commit=False)
                 post.author = request.user
-                #post.published_date = timezone.now()
                 post.tags.set(form.cleaned_data["tags"])
                 post.create_brief_description()
+                if "thumbnail" in request.FILES.keys():
+                    post.thumbnail =  request.FILES["thumbnail"]
                 post.save()
-                return redirect('post_detail', pk=post.pk)
+                return redirect('post_detail', pk=post.pk) #render(request, "blog/post_edit.html",{"form":form, "thumbnail" : post.thumbnail})#
             else:
                 form.add_error(None,"Choose at least one language tag")
     else:

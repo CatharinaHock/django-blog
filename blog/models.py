@@ -39,14 +39,40 @@ class Tag(models.Model):
 eng = Tag(name="English",style="pp", type="l")
 
 class Post(models.Model):
+    TITLE_ALIGN_CHOICES = (
+        ("c", "align-center"),
+        ("t", "algin-top"),
+        ("b", "align-bottom"),
+    )
+
+    TITLE_COLOR_CHOICES = (
+        ("wh", "white"),
+        ("lb","lightblue"),
+        ("pb","pastelblue"),
+        ("pp","pastelpurple"),
+        ("sg", "seagreen"),
+        ("bl", "inkblack"),
+    )
+
+    TITLE_BACKGROUND_CHOICES = (
+        ("no", "none"),
+        ("gr", "grey"),
+        ("bl", "black"),
+        ("wh", "white"),
+    )
+
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     title =  models.CharField(max_length = 200)
     text = models.TextField()
     brief_description =  models.TextField(blank =  True, null = True)
     authors_comment = models.TextField(blank=True, null=True)
-    thumbnail = models.ImageField(blank = True, null = True)
+    thumbnail = models.ImageField(blank = True, null = True, upload_to="pictures/")
     created_date = models.DateTimeField(default= timezone.now)
     published_date = models.DateTimeField(blank = True, null = True)
+
+    title_align = models.CharField(max_length=1, choices=TITLE_ALIGN_CHOICES, default = "c")
+    title_color = models.CharField(max_length=2, choices=TITLE_COLOR_CHOICES, default = "bl")
+    title_background = models.CharField(max_length=2, choices=TITLE_BACKGROUND_CHOICES, default = "no")
 
     # add (multiple) tags
     tags= models.ManyToManyField("Tag", related_name = "tags")

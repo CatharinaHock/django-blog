@@ -1,10 +1,12 @@
 {% extends "blog/base.html" %}
+{% load static %}
 
 {% block content %}
     
     <div class="container-fluid article-container form">
         <h2> New post</h2>
-        <form method="POST" class="post-form">{%csrf_token %}
+        <form method="POST" class="post-form" enctype="multipart/form-data">{%csrf_token %}
+            <!-- enctype is needed for uploading images-->
             {{ form.as_p}}
             <button type="submit" class="save btn btn-secondary" style="margin:10px;"> Save</button>
             {% if current_post %}
@@ -19,7 +21,16 @@
             </div>
             {% endif %}
 
+            {% if thumbnail %}
+            <h3>Succesfully uploaded : {{thumbnail.title}}</h3>
+            <img src="{{ thumbnail.url}}" alt="connect" style="max-height:300px">
+            {{ thumbnail.image.url}}
+            {% endif %}
+
+
         </form>
+
+        
     </div>
 
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Post, Tag
-from django.utils import timezone
+from django.utils import timezone, safestring
 from .forms import PostForm, TagForm
 #from serializers import PostSerializer, LanguageSerializer
 from django.contrib.auth.decorators import login_required
@@ -43,20 +43,18 @@ def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
-            if form.cleaned_data["tags"].filter(type="l") != []:
-                post = form.save(commit = False)
-                post.author = request.user
-                post.published_date = timezone.now()
-                post.thumbnail = form.cleaned_data["thumbnail"]
-                post.save()
-                post.create_brief_description()
-                post.tags.set(form.cleaned_data["tags"])
-                if "thumbnail" in request.FILES.keys():
-                    post.thumbnail =  request.FILES["thumbnail"]
-                post.save()
-                return redirect("post_detail", pk = post.pk)
-            else:
-                form.add_error(None,"Choose at least one language tag")
+            post = form.save(commit = False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.thumbnail = form.cleaned_data["thumbnail"]
+            post.save()
+            post.create_brief_description()
+            post.tags.set(form.cleaned_data["tags"])
+            if "thumbnail" in request.FILES.keys():
+                post.thumbnail =  request.FILES["thumbnail"]
+            post.save()
+            return redirect("post_detail", pk = post.pk)
+
     else:
         form = PostForm()
     return render(request, "blog/post_edit.html", {"form": form})
@@ -67,17 +65,14 @@ def post_edit(request, pk):
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            if form.cleaned_data["tags"].filter(type__exact="l") != []:
-                post = form.save(commit=False)
-                post.author = request.user
-                post.tags.set(form.cleaned_data["tags"])
-                post.create_brief_description()
-                if "thumbnail" in request.FILES.keys():
-                    post.thumbnail =  request.FILES["thumbnail"]
-                post.save()
-                return redirect('post_detail', pk=post.pk) #render(request, "blog/post_edit.html",{"form":form, "thumbnail" : post.thumbnail})#
-            else:
-                form.add_error(None,"Choose at least one language tag")
+            post = form.save(commit=False)
+            post.author = request.user
+            post.tags.set(form.cleaned_data["tags"])
+            post.create_brief_description()
+            if "thumbnail" in request.FILES.keys():
+                post.thumbnail =  request.FILES["thumbnail"]
+            post.save()
+            return redirect('post_detail', pk=post.pk) #render(request, "blog/post_edit.html",{"form":form, "thumbnail" : post.thumbnail})#
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form, "current_post": post})

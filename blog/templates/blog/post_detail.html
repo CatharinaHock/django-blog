@@ -1,7 +1,13 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+{% autoescape off %}
+
+{% if post.thumbnail %}
 <div class="container-fluid bg-primary  text-center post-header-box" style="background-image: url('{{ post.thumbnail.url}}');">
+{% else %}
+<div class="container-fluid bg-primary text-center post-header-box fancy_gradient_background">
+{% endif %}
     <table style="height: 100%; width: 100%;">
         <td class= "{{post.get_title_align_display}}">
             <div class = "background-{{post.get_title_background_display}}" style ="color:var(--{{post.get_title_color_display}})">{{ post.title }}</div>
@@ -11,6 +17,7 @@
     <div class="container-fluid article-container">
         
         <article class="post">
+
             <aside class="actions">
                 {% if user.is_authenticated %}
                     <a class="btn btn-secondary" href="{% url 'post_edit' pk=post.pk %}">
@@ -35,8 +42,10 @@
             {% if False %}
             <img src="{{ post.thumbnail.url}}" alt="connect" style="max-height:300px">
             {% endif %}
+             
 
             <p>{{ post.text|linebreaksbr }}</p>
+            
             {% if post.authors_comment %}
             <br>
             <button class="accordion">Author's Comment</button>
@@ -45,5 +54,7 @@
             </div>
             {% endif %}
         </article>
+        {% endautoescape %}
+        
     </div>
 {% endblock %}

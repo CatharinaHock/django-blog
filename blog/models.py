@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import models
-from django.utils import timezone
+from django.utils import timezone, safestring
 
 
 
@@ -79,7 +79,7 @@ class Post(models.Model):
 
     def create_brief_description(self):
         print("calling create_brief_description")
-        if self.brief_description == None:
+        if not self.brief_description:
             self.brief_description = self.text[:500]
             print("created new description!")
             if len(self.text)<500 and not self.brief_description[-1] in [".", "?", "!"]:
@@ -96,3 +96,4 @@ class Post(models.Model):
         # default ordering
         ordering=["-published_date"]
 
+    

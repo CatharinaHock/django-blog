@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    
+    {% autoescape off %}
     <div class="container-fluid article-container">
     <h1> Meet the tags!</h1>
     {% for tag in tags %}
@@ -46,5 +46,7 @@
     <img class= "mx-auto d-block" src="{% static '/pictures/sheep_searching.PNG' %}" alt="me as a sheep" style="width:80%; max-width: 400px;">
     <p style="text-align:center;"> Sorry, but there are no posts with this tag yet.</p>
     {% endif %}
+
+    {% endautoescape %}
     </div>
 {% endblock %}

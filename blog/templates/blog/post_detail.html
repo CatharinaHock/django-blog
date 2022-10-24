@@ -4,15 +4,21 @@
 {% autoescape off %}
 
 {% if post.thumbnail %}
-<div class="container-fluid bg-primary  text-center post-header-box" style="background-image: url('{{ post.thumbnail.url}}');">
+    {% if post.show_whole_thumbnail %}
+        <div class="container-fluid text-center post-header-box background-color-{{post.background_color}} show-complete-image" style="background-image: url('{{ post.thumbnail.url}}');">
+    {% else %}
+        <div class="container-fluid text-center post-header-box background-color-{{post.background_color}}" style="background-image: url('{{ post.thumbnail.url}}');">
+    {% endif %}
 {% else %}
-<div class="container-fluid bg-primary text-center post-header-box fancy_gradient_background">
+    <div class="container-fluid bg-primary text-center post-header-box background-color-{{post.background_color}}">
 {% endif %}
+{% if post.show_title_in_header %}
     <table style="height: 100%; width: 100%;">
         <td class= "{{post.get_title_align_display}}">
-            <div class = "background-{{post.get_title_background_display}}" style ="color:var(--{{post.get_title_color_display}})">{{ post.title }}</div>
+            <div class = "title-background-{{post.get_title_background_display}}" style ="color:var(--{{post.get_title_color_display}})">{{ post.title }}</div>
         </td>
     </table>
+    {% endif %}
 </div>
     <div class="container-fluid article-container">
         
@@ -36,15 +42,23 @@
                 <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag {{tag.style}}">{{ tag.name }}</a>
                 {% endfor %}
             </div>
-
+            {% if post.show_title_below_header %}
             <h2>{{ post.title }}</h2>
+            {% else %}
+            <br>
+            {% endif %}
+            <br>
 
             {% if False %}
             <img src="{{ post.thumbnail.url}}" alt="connect" style="max-height:300px">
             {% endif %}
              
+            {% if "<p>" in post.text %}
+                <p>{{ post.text}}</p>
+            {% else %}
+                <p>{{ post.text|linebreaksbr }}</p>
+            {% endif %}
 
-            <p>{{ post.text|linebreaksbr }}</p>
             
             {% if post.authors_comment %}
             <br>

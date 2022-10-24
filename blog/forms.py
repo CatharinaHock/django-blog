@@ -8,7 +8,7 @@ class PostForm(forms.ModelForm):
     
     class Meta:
         model = Post
-        fields = ("title", "text", "authors_comment", "brief_description", "thumbnail", "tags","title_color","title_background","title_align")
+        fields = ("title", "text", "authors_comment", "brief_description", "thumbnail", "tags","show_title_in_header","show_title_below_header","title_color","title_background","title_align", "show_whole_thumbnail", "background_color")
 
         widgets = {
             "tags": forms.CheckboxSelectMultiple(attrs={"class": "column_checkbox form-check-label", "type": "radio"}),

@@ -35,7 +35,7 @@
 .post {
     margin-top: 35px;
     margin-bottom: 35px;
-    width:100%;
+    /*width:100%;*/
 }
 
 .post > .date,
@@ -352,28 +352,81 @@ canvas {
     text-align: center;
 }
 
-.fancy_gradient_background{
-    background-image: linear-gradient(to bottom right, var(--seagreen), var(--lightblue), var(--pastelpurple), var(--purple), var(--navyblue));
-}
-.white-post-heading{
-    color:white; 
-    background-color:rgba(0,0,0,0.25);
-    text-align:center;
-    width:100%;
-}
-
-.background-grey{
+.title-background-grey{
     background-color:rgba(0,0,0,0.25);
 }
 
-.background-black{
+.title-background-black{
     background-color:rgb(0, 0, 0);
 }
 
-.background-white{
+.title-background-white-transparent{
+    background-color:rgba(255, 255, 255, 0.5);
+}
+
+.title-background-white{
+    background-color:rgba(255, 255, 255, 1);
+}
+
+.title-background-none{
+    background-color:transparent;
+}
+
+.title-bg-blue{
+    background-color:var(--lightblue);
+}
+/* Post Header Box background colors.*/
+
+.background-color-rbl{
+    background-image: linear-gradient(to bottom left, var(--seagreen), var(--lightblue), var(--pastelpurple), var(--purple), var(--navyblue));
+}
+
+.background-color-rbr{
+    background-image: linear-gradient(to bottom right, var(--seagreen), var(--lightblue), var(--pastelpurple), var(--purple), var(--navyblue));
+}
+
+.background-color-gd{
+    background-image: linear-gradient(to right, rgb(255, 245, 132),rgb(255, 197, 52), rgb(169, 137, 56),rgb(255, 197, 52) );
+}
+
+.background-color-wh{
     background-color:white;
 }
 
-.background-none{
-    background-color:transparent;
+.background-color-bl{
+    background-color: black;
+}
+
+.background-color-lb{
+    background-color: var(--lightblue);
+}
+
+.background-color-pb{
+    background-color: var(--pastelblue);
+}
+.background-color-pp{
+    background-color: var(--pastelpurple);
+}
+
+.background-color-sg{
+    background-color: var(--seagreen);
+}
+
+.background-color-pr{
+    background-color: var(--purple);
+}
+
+.thumbnail-post-list{
+    /*width:100%;*/
+    height: 100%;
+    border-radius:25px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 2px 2px 4px grey;
+}
+
+.show-complete-image{
+    background-attachment: scroll;
+    background-size: contain;
 }

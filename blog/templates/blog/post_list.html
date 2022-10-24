@@ -26,21 +26,42 @@
         </h1>
     
     {% endif %}
-    {% for post in posts %}
-        <article class="post">
-            <time class="date">
-                <i class="fa fa-calendar"></i> {{ post.published_date }}
-            </time>
-            
-            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            <div class="tag-box">
-                {% for tag in post.tags.all %}
-                <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag {{tag.style}}">{{ tag.name }}</a>
-                {% endfor %}
 
-            </div>
-            <p>{{ post.brief_description|linebreaksbr }}</p>
-        </article>
+    {% for post in posts %}
+        <div class="row post">
+            <!--<article class="post">-->
+                <div class="col-sm-4 container-fluid" >
+                    {% if post.thumbnail %}
+                        {% if post.show_whole_thumbnail %}
+                            <div class="container-fluid background-color-{{post.background_color}} thumbnail-post-list show-complete-image" style="background-image: url('{{post.thumbnail.url}}'); ">
+                        {% else %}
+                            <div class="container-fluid background-color-{{post.background_color}} thumbnail-post-list" style="background-image: url('{{post.thumbnail.url}}'); ">
+                        {% endif %}
+                    {% else %}
+                    <div class="container-fluid background-color-{{post.background_color}} thumbnail-post-list" >
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <time class="date">
+                        <i class="fa fa-calendar"></i> {{ post.published_date }}
+                    </time>
+                    
+                    <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                    <div class="tag-box">
+                        {% for tag in post.tags.all %}
+                        <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag {{tag.style}}">{{ tag.name }}</a>
+                        {% endfor %}
+
+                    </div>
+                    {% if "<p>" in post.brief_description %}
+                        <p>{{ post.brief_description}}</p>
+                    {% else %}
+                        <p>{{ post.brief_description|linebreaksbr }}</p>
+                    {% endif %}
+                </div>
+            <!--</article>-->
+        </div>
     {% endfor %}
     {% if not posts %}
     <img class= "mx-auto d-block" src="{% static '/pictures/sheep_searching.PNG' %}" alt="me as a sheep" style="width:80%; max-width: 400px;">

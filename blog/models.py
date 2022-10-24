@@ -50,6 +50,7 @@ class Post(models.Model):
         ("lb","lightblue"),
         ("pb","pastelblue"),
         ("pp","pastelpurple"),
+        ("pr","purple"),
         ("sg", "seagreen"),
         ("bl", "inkblack"),
     )
@@ -59,6 +60,20 @@ class Post(models.Model):
         ("gr", "grey"),
         ("bl", "black"),
         ("wh", "white"),
+        ("wt", "white-transparent"),
+    )
+
+    BACKGROUND_COLOR_CHOICES = (
+        ("rbl", "delve deeper rainbow  to bottom left"),
+        ("rbr", "delve deeper rainbow  to bottom right"),
+        ("gd", "golden"),
+        ("wh", "white"),
+        ("bl","black"),
+        ("lb","lightblue"),
+        ("pb","pastelblue"),
+        ("pp","pastelpurple"),
+        ("pr", "purple"),
+        ("sg", "seagreen"),
     )
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
@@ -70,9 +85,15 @@ class Post(models.Model):
     created_date = models.DateTimeField(default= timezone.now)
     published_date = models.DateTimeField(blank = True, null = True)
 
+    
     title_align = models.CharField(max_length=1, choices=TITLE_ALIGN_CHOICES, default = "c")
     title_color = models.CharField(max_length=2, choices=TITLE_COLOR_CHOICES, default = "bl")
     title_background = models.CharField(max_length=2, choices=TITLE_BACKGROUND_CHOICES, default = "no")
+
+    show_whole_thumbnail = models.BooleanField(default = False)
+    background_color = models.CharField(max_length = 3, choices= BACKGROUND_COLOR_CHOICES, default="rbl")
+    show_title_in_header = models.BooleanField(default=True)
+    show_title_below_header = models.BooleanField(default = True)
 
     # add (multiple) tags
     tags= models.ManyToManyField("Tag", related_name = "tags")

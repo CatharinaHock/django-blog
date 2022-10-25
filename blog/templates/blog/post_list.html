@@ -31,6 +31,7 @@
         <div class="row post">
             <!--<article class="post">-->
                 <div class="col-sm-4 container-fluid" >
+                    <a href="{% url 'post_detail' pk=post.pk %}">
                     {% if post.thumbnail %}
                         {% if post.show_whole_thumbnail %}
                             <div class="container-fluid background-color-{{post.background_color}} thumbnail-post-list show-complete-image" style="background-image: url('{{post.thumbnail.url}}'); ">
@@ -40,7 +41,7 @@
                     {% else %}
                     <div class="container-fluid background-color-{{post.background_color}} thumbnail-post-list" >
                     {% endif %}
-                    </div>
+                    </div> </a>
                 </div>
                 <div class="col-sm-8">
                     <time class="date">
@@ -64,7 +65,7 @@
         </div>
     {% endfor %}
     {% if not posts %}
-    <img class= "mx-auto d-block" src="{% static '/pictures/sheep_searching.PNG' %}" alt="me as a sheep" style="width:80%; max-width: 400px;">
+    <img class= "mx-auto d-block" src="{% static '/pictures/sheep_searching.png' %}" alt="me as a sheep" style="width:80%; max-width: 400px;">
     <p style="text-align:center;"> Sorry, but there are no posts with this tag yet.</p>
     {% endif %}
 

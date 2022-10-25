@@ -9,7 +9,8 @@ from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 def start_page(request):
-    return render(request, "blog/start.html", {"display_logo": True})
+    featured_post = Post.objects.filter(title__exact = "Epiphany")[0]
+    return render(request, "blog/start.html", {"display_logo": True, "featured_post":featured_post})
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte = timezone.now()).order_by("-published_date")

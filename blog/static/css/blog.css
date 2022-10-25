@@ -429,4 +429,6 @@ canvas {
 .show-complete-image{
     background-attachment: scroll;
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }

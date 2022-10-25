@@ -4,13 +4,13 @@
 {% autoescape off %}
 
 {% if post.thumbnail %}
-    {% if post.show_whole_thumbnail %}
-        <div class="container-fluid text-center post-header-box background-color-{{post.background_color}} show-complete-image" style="background-image: url('{{ post.thumbnail.url}}');">
+{% if post.show_whole_thumbnail %}
+        <div class="container-fluid text-center post-header-box background-color-{{post.background_color}} show-complete-image" style="background-image: url('{{ post.thumbnail.url}}');" >
     {% else %}
-        <div class="container-fluid text-center post-header-box background-color-{{post.background_color}}" style="background-image: url('{{ post.thumbnail.url}}');">
+        <div class="container-fluid text-center post-header-box background-color-{{post.background_color}}" style="background-image: url('{{ post.thumbnail.url}}');" >
     {% endif %}
 {% else %}
-    <div class="container-fluid bg-primary text-center post-header-box background-color-{{post.background_color}}">
+    <div class="container-fluid text-center post-header-box background-color-{{post.background_color}}" >
 {% endif %}
 {% if post.show_title_in_header %}
     <table style="height: 100%; width: 100%;">

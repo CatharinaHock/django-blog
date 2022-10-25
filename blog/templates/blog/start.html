@@ -11,25 +11,28 @@
             Enthusiasm demands to be shared, and I am very happy to oblige. Here you will find the 
             miscellaneous mess of thing I made, including short stories, artwork, coding projects and
             the other things future me will come up with.
-            
+            <br>
             Enjoy!
         </h5>
     </div>
     <div class="col-sm">
         <img class= "mx-auto d-block" src="{% static '/pictures/blog_sheep_me.PNG' %}" alt="me as a sheep" style="height:400px;">
     </div>
-    <div class="col-sm">
-        <h1> Welcome!</h1>
-        <h2> Welcome!</h2>
-        <h3> Welcome!</h3>
-        <h4> Welcome!</h4>
-        <h5> Welcome!</h5>
-        <p> Welcome!</p>
-    </div>
 </div>
-
-<div class="p-5 container-fluid row" style="background-color:var(--pastelblue)">
+<!--
+{% autoescape off  %}
+<div class="p-5 container-fluid row" style="height:500px; overflow:hidden;">
     <h1 class="text-center"> Where to start</h1>
+    <div class="col-sm show-complete-image" style="background-image: url('{{featured_post.thumbnail.url}}'); height:400px; width:100%;">
+    </div>
+    <div class="col-sm">
+
+        <h2>{{featured_post.title}}</h2>
+        <p>{{featured_post.text}}</p>
+        
+    </div>
+
+    {% endautoescape %}
     
     <div class="col-sm shadedBox" style="background-image: url({% static '/pictures/Fernmeldeturm.JPG' %});">
         
@@ -55,7 +58,7 @@
         <p style="font-family:serif;">serif</p>
         <p style="font-family:Ubuntu;">Ubuntu</p>
         <p style="font-family:Arial;">Arial</p>
-        <p style="font-family:Verdana;">Verdana</p>
+        <p style="font-family:Verdana;">Verdana</p> -->
     
 
 </div>

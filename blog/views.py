@@ -48,9 +48,9 @@ def tag_list_post_list(request, pk_list):
 def post_detail(request, pk):
     post =  get_object_or_404(Post, pk =pk)
     if post.post_type == "tex":
-        return render(request, "blog/post_detail.html", {"post":post})
+        return render(request, "blog/post_detail.html", {"post":post, "isTextPost":1,})
     else:
-        return render(request, "blog/picture_post_detail.html", {"post":post})
+        return render(request, "blog/picture_post_detail.html", {"post":post, "isTextPost":0,})
 
 @login_required
 def post_new(request, isTextPost = 1):

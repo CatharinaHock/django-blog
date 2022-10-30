@@ -5,7 +5,7 @@
     <div class="container-fluid article-container form">
         
         {% if current_tag %}
-        <h2> Edit <a href="{% url 'tag_post_list' pk=current_tag.pk %}" class="badge badge-pill badge-tag {{current_tag.style}}" >{{ current_tag.name }}</a> </h2>
+        <h2> Edit <a href="{% url 'tag_post_list' pk=current_tag.pk isTextPost=1%}" class="badge badge-pill badge-tag {{current_tag.style}}" >{{ current_tag.name }}</a> </h2>
         {% else %}
         <h2> New Tag</h2>
         {% endif %}

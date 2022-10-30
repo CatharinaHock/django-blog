@@ -53,7 +53,7 @@
             <img src="{{ post.thumbnail.url}}" alt="connect" style="max-height:300px">
             {% endif %}
              
-            {% if "<p>" in post.text %}
+            {% if "<p>" in post.text or "<br>" in post.text %}
                 <p>{{ post.text}}</p>
             {% else %}
                 <p>{{ post.text|linebreaksbr }}</p>

@@ -76,6 +76,18 @@ class Post(models.Model):
         ("sg", "seagreen"),
     )
 
+    POST_TYPE_CHOICES = (
+        ("tex", "text-based post"),
+        ("pic", "picture-based post"),
+        ("art", "artwork"),
+        
+    )
+    
+    PICTURE_ORIENTATION_CHOICES = (
+        ("h", "horizontal"),
+        ("v", "vertical"),
+    )
+
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     title =  models.CharField(max_length = 200)
     text = models.TextField()
@@ -94,6 +106,9 @@ class Post(models.Model):
     background_color = models.CharField(max_length = 3, choices= BACKGROUND_COLOR_CHOICES, default="rbl")
     show_title_in_header = models.BooleanField(default=True)
     show_title_below_header = models.BooleanField(default = True)
+
+    post_type = models.CharField(max_length=3, choices = POST_TYPE_CHOICES, default="tex")
+    picture_orientation = models.CharField(max_length = 1, choices = PICTURE_ORIENTATION_CHOICES, default = "v")
 
     # add (multiple) tags
     tags= models.ManyToManyField("Tag", related_name = "tags")
@@ -117,4 +132,12 @@ class Post(models.Model):
         # default ordering
         ordering=["-published_date"]
 
-    
+"""
+class PicturePost(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+    title =  models.CharField(max_length = 200)
+    text = models.TextField()
+    picture = models.ImageField(blank = True, null = True, upload_to="pictures/")
+    created_date = models.DateTimeField(default= timezone.now)
+    published_date = models.DateTimeField(blank = True, null = True)
+"""

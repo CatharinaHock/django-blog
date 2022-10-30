@@ -4,7 +4,7 @@
 {% block content %}
     
     <div class="container-fluid article-container form">
-        <h2> New post</h2>
+        <h2> New {{post_type}}</h2>
         <form method="POST" class="post-form" enctype="multipart/form-data">{%csrf_token %}
             <!-- enctype is needed for uploading images-->
             {{ form.as_p}}

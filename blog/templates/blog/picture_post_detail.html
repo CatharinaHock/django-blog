@@ -1,0 +1,55 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+{% if post.picture_orientation == "v" %}
+
+<img class="picture-post-header-box mx-auto d-block picture-vertical gold-frame" src="{{ post.thumbnail.url}}"></img>
+{% else %}
+<img class="picture-post-header-box mx-auto d-block picture-horizontal gold-frame" src="{{ post.thumbnail.url}}"></img>
+{% endif %}
+
+<div class="container-fluid article-container">
+        
+    <article class="post">
+
+        <aside class="actions">
+            {% if user.is_authenticated %}
+                <a class="btn btn-secondary" href="{% url 'post_edit' pk=post.pk %}">
+                    {% include './icons/pencil-fill.svg' %}
+                </a>
+            {% endif %}
+        </aside>
+
+        {% if post.published_date %}
+            <time class="date">
+                <i class="fa fa-calendar"></i> {{ post.published_date }}
+            </time>
+        {% endif %}
+        {% if False %}
+        <div class="tag-box">
+            {% for tag in post.tags.all %}
+            <a href="{% url 'tag_post_list' pk=tag.pk %}" class="badge badge-pill badge-tag {{tag.style}}">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h2>{{ post.title }}</h2>
+        {% if "<p>" in post.text or "<br>" in post.text %}
+            <p>{{ post.text}}</p>
+        {% else %}
+            <p>{{ post.text|linebreaksbr }}</p>
+        {% endif %}
+
+        
+        {% if post.authors_comment %}
+        <br>
+        <button class="accordion">Author's Comment</button>
+        <div class="panel">
+            <p>{{ post.authors_comment|linebreaksbr }}</p>
+        </div>
+        {% endif %}
+    </article>
+    
+</div>
+
+{% endblock %}

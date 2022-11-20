@@ -1,7 +1,8 @@
 from django import forms
 from django.utils.safestring import mark_safe
+from django.core.exceptions import ValidationError
 
-from .models import Post, Tag
+from .models import Post, Tag, Comment
 
 
 class PostForm(forms.ModelForm):
@@ -33,16 +34,13 @@ class PostForm(forms.ModelForm):
     )
     """
 
-    def clean(self):
+    def clean_tags(self):
         # data from the form is fetched using super function
-        super(PostForm, self).clean()
+        #super(PostForm, self).clean()
         
-        # extract the username and text field from the data
         tags = self.cleaned_data.get('tags')
         language_tags = tags.filter(type="l")
-
         
-        # conditions to be met for the username length
         if len(language_tags) == 0:
             self._errors['tags'] = self.error_class([
                 'Please choose at least one language tag.'])
@@ -60,7 +58,7 @@ class PostForm(forms.ModelForm):
         """
 
         # return any errors if found
-        return self.cleaned_data
+        return tags
 
 class TagForm(forms.ModelForm):
     class Meta:
@@ -71,12 +69,26 @@ class TagForm(forms.ModelForm):
 class PicturePostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ("title", "text", "brief_description", "thumbnail", "tags","post_type", "picture_orientation")
+        fields = ("title", "text", "brief_description", "thumbnail", "tags","post_type", "picture_orientation", "published_date",)
         
         widgets = {
             "tags": forms.CheckboxSelectMultiple(attrs={"class": "column_checkbox form-check-label", "type": "radio"}),
         }
     
+    def clean_thumbnail(self):
+        thumbnail = self.cleaned_data.get('thumbnail')
+        if not thumbnail:
+            self._errors['thumbnail'] = self.error_class([
+               'Please upload a picture or choose a different Post-type.'])
+        return thumbnail
+    
+    def clean_post_type(self):
+        post_type = self.cleaned_data.get("post_type")
+        if self.cleaned_data.get("post_type")== "tex":
+            self._errors["post_type"] = self.error_class(["Please choose 'artwork' or 'picture-based post'"])
+        return post_type
+
+        """
     def clean(self):
         # data from the form is fetched using super function
         super(PicturePostForm, self).clean()
@@ -89,3 +101,35 @@ class PicturePostForm(forms.ModelForm):
         #        'Please upload a picture or choose a different Post-type.'])
         if self.cleaned_data.get("post_type")== "tex":
             self._errors["post_type"] = self.error_class(["Please choose 'artwork' or 'picture-based post'"])
+        
+        return self.cleaned_data
+        """
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ('author', 'text',)
+        widgets = {
+            'author':forms.Textarea(attrs={'rows':1,'placeholder':"Your name"}),
+            'text': forms.Textarea(attrs={'rows':4, 'placeholder':'Put your comment here',}),
+        }
+    """
+    def clean(self):
+        cleaned_data = super(CommentForm,self).clean()
+        if "chock" == cleaned_data.get("author"):
+            raise ValidationError(
+                "Please use a name that doesn't contain 'chock' to avoid confusion."
+            )
+            #self._errors["author"] = self.error_class(["Please choose a different name."])
+        
+        #return self.cleaned_data
+    """
+    def clean_author(self):
+        author=self.cleaned_data.get("author")
+        if "chock" in author or "Chock" in author:
+            raise ValidationError(
+                "Please use a name that doesn't contain 'chock' to avoid confusion."
+            )
+        return author
+    

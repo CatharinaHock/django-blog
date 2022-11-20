@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Post, Tag
+from .models import Post, Tag, Comment
 from django.utils import timezone, safestring
-from .forms import PicturePostForm, PostForm, TagForm
+from .forms import PicturePostForm, PostForm, TagForm, CommentForm
 #from serializers import PostSerializer, LanguageSerializer
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
@@ -47,10 +47,20 @@ def tag_list_post_list(request, pk_list):
 
 def post_detail(request, pk):
     post =  get_object_or_404(Post, pk =pk)
-    if post.post_type == "tex":
-        return render(request, "blog/post_detail.html", {"post":post, "isTextPost":1,})
+    comments = Comment.objects.filter(post__pk = pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('post_detail', pk=post.pk)
     else:
-        return render(request, "blog/picture_post_detail.html", {"post":post, "isTextPost":0,})
+        form = CommentForm()
+    if post.post_type == "tex":
+        return render(request, "blog/post_detail.html", {"post":post, "isTextPost":1, "comments": comments,'form': form})
+    else:
+        return render(request, "blog/picture_post_detail.html", {"post":post, "isTextPost":0, "comments": comments,'form': form})
 
 @login_required
 def post_new(request, isTextPost = 1):
@@ -64,7 +74,7 @@ def post_new(request, isTextPost = 1):
         if form.is_valid():
             post = form.save(commit = False)
             post.author = request.user
-            post.published_date = timezone.now()
+            #post.published_date = timezone.now()
             post.thumbnail = form.cleaned_data["thumbnail"]
             if isTextPost!=0:
                 post.post_type = "tex"

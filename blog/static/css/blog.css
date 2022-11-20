@@ -142,7 +142,12 @@ form{
 .post-form textarea,
 .post-form input {
     width: 100%;
+    border-radius: 5px;
+    border-color: grey;
+    border-width: 1px;
 }
+
+
 
 .shadedBox{
     background-color:lightblue;
@@ -185,7 +190,14 @@ a:active.badge-tag {
 
 div.tag-box{
     float:right;
-    padding: 10px;
+    padding: 5px;
+    padding-right:0px;
+    max-width: 60%;
+    
+}
+.tag-box-badge{
+    float:right;
+    margin:2.5px 0px 2.5px 5px;
 }
 
 .lb{ /* lightblue */
@@ -467,4 +479,12 @@ canvas {
 
 .rounded-corners{
     border-radius: 20px;
+}
+.comment{
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 10px 20px 10px 10px;
+    background-color: var(--lightgrey);
+    color:black;
+    border-radius: 10px;
 }
